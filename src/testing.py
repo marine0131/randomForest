@@ -7,7 +7,7 @@ from MakeData import returnLine
 import copy
 #Author: Ryan Young
 
-#An array of all the files containing data and an array of the labels for each file 
+#An array of all the files containing data and an array of the labels for each file
 labels = ["Disco", "ChickenDance", "WalkLikeAnEgyptian", "YMCA"]
 sub1 = ["./data/PositionsDisco.log", "./data/PositionsChkn.log", "./data/PositionsEgy.log", "./data/Positionsymca.log"]
 sub2 = ["./data/TestDisco.log", "./data/TestChkn.log", "./data/TestEgy.log", "./data/TestYMCA.log"]
@@ -17,10 +17,10 @@ sub3 = ["./data/JDisco.log", "./data/JChkn.log", "./data/JEgy.log", "./data/JYMC
 class confusionMatrix:
     '''
     This is just a helper class for creating a confusion matrix
-    It contains a map of each label where the first key is the true 
+    It contains a map of each label where the first key is the true
     label and each value is another map where the second key is the
-    predicted label. From there we can increment a value for that 
-    prediction. 
+    predicted label. From there we can increment a value for that
+    prediction.
     '''
 
     def __init__(self, labelList):
@@ -41,7 +41,7 @@ class confusionMatrix:
 
 def generateAllAngleTrainingData():
     '''
-    This function creates one large TrainingData object 
+    This function creates one large TrainingData object
     containing data from all three participants but uses
     calculated angles as the features for each data sample.
     '''
@@ -54,8 +54,8 @@ def generateAllAngleTrainingData():
         f2In = open(sub2[i], 'r')
         f3In = open(sub3[i], 'r')
 
-        #For each line of the files calculate the 
-        # angles inbetween joints and use the resulting 
+        #For each line of the files calculate the
+        # angles inbetween joints and use the resulting
         # array as the feature vector. Add that to the trainingData.
         for line in fIn:
             features = generateAngles(line)
@@ -80,7 +80,7 @@ def generateAllAngleTrainingData():
 
 def generateAllPositionTrainingData():
     '''
-    This function creates one large TrainingData object 
+    This function creates one large TrainingData object
     containing data from all three participants but uses
     regular position data as the features for each data sample.
     '''
@@ -113,7 +113,7 @@ def generateAllPositionTrainingData():
         index += 1
 
     #Return the data
-    return trainingData   
+    return trainingData
 
 
 def generateTwoAngleTrainingData():
@@ -131,8 +131,8 @@ def generateTwoAngleTrainingData():
         fIn = open(sub1[i], 'r')
         f2In = open(sub2[i], 'r')
 
-        #For each line of the files calculate the 
-        # angles inbetween joints and use the resulting 
+        #For each line of the files calculate the
+        # angles inbetween joints and use the resulting
         # array as the feature vector. Add that to the trainingData.
         for line in fIn:
             features = generateAngles(line)
@@ -183,8 +183,8 @@ def generateTwoPositionTrainingData():
 
 def generateOneTestAngleData():
     '''
-    This creates a list of sample objects that can 
-    be used for testing. This list is built from the third 
+    This creates a list of sample objects that can
+    be used for testing. This list is built from the third
     participant's data and uses angles as features.
     '''
 
@@ -194,8 +194,8 @@ def generateOneTestAngleData():
     for filename in sub3:
         #Open the file
         fIn = open(filename, 'r')
-        #For each line of the file calculate the 
-        # angles inbetween joints and use the resulting 
+        #For each line of the file calculate the
+        # angles inbetween joints and use the resulting
         # array as the feature vector. Add that to the list.
         for line in fIn:
             features = generateAngles(line)
@@ -208,10 +208,10 @@ def generateOneTestAngleData():
 
 def generateOneTestPositionData(means, stdDevs):
     '''
-    This creates a list of sample objects that can 
-    be used for testing. This list is built from the third 
+    This creates a list of sample objects that can
+    be used for testing. This list is built from the third
     participant's data and uses joint positions as features.
-    The poisitions are also normalized as they are added to 
+    The poisitions are also normalized as they are added to
     the list.
     '''
 
@@ -246,8 +246,8 @@ def generateTwoTestAngleData():
     for filename in sub2:
         #Open the file
         fIn = open(filename, 'r')
-        #For each line of the file calculate the 
-        # angles inbetween joints and use the resulting 
+        #For each line of the file calculate the
+        # angles inbetween joints and use the resulting
         # array as the feature vector. Add that to the list.
         for line in fIn:
             features = generateAngles(line)
@@ -259,8 +259,8 @@ def generateTwoTestAngleData():
     for filename in sub3:
         #Open the file
         fIn = open(filename, 'r')
-        #For each line of the file calculate the 
-        # angles inbetween joints and use the resulting 
+        #For each line of the file calculate the
+        # angles inbetween joints and use the resulting
         # array as the feature vector. Add that to the list.
         for line in fIn:
             features = generateAngles(line)
@@ -293,7 +293,7 @@ def generateTwoTestPositionData(means, stdDevs):
         fIn.close()
         index += 1
 
-    index = 0 
+    index = 0
 
     for filename in sub3:
         #Open the file
@@ -323,8 +323,8 @@ def generateOneTrainAngleData():
     for filename in sub1:
         #Open the file
         fIn = open(filename, 'r')
-        #For each line of the file calculate the 
-        # angles inbetween joints and use the resulting 
+        #For each line of the file calculate the
+        # angles inbetween joints and use the resulting
         # array as the feature vector. Add that to the trainingData.
         for line in fIn:
             features = generateAngles(line)
@@ -360,17 +360,17 @@ def generateOneTrainPositionData():
 
 def crossValidationAngles():
     '''
-    Performs 10 fold cross validation on the total angle 
+    Performs 10 fold cross validation on the total angle
     dataset
     '''
-    theData = generateAllAngleTrainingData() 
+    theData = generateAllAngleTrainingData()
     k = 10
 
     #Partition the data into 10 subsets
     dataSets = theData.getKSegments(k)
 
-    #For each of the 10 subsets leave one out, train on the 
-    # other 9, test on the one left out, print the accuracy. 
+    #For each of the 10 subsets leave one out, train on the
+    # other 9, test on the one left out, print the accuracy.
     results = confusionMatrix(labels)
     for i in xrange(k):
         print i
@@ -388,7 +388,7 @@ def crossValidationAngles():
         testForest.train()
 
         #Evaluate the classifer on the test set
-        
+
         for samp in testSet.getData():
             resultLabel = testForest.classify(samp)
             trueLabel = samp.getLabel()
@@ -399,18 +399,18 @@ def crossValidationAngles():
 
 def crossValidationPositions():
     '''
-    Performs 10 fold cross validation on the total 
+    Performs 10 fold cross validation on the total
     joint position dataset
     '''
-    theData = generateAllPositionTrainingData() 
+    theData = generateAllPositionTrainingData()
     means, stdDevs = theData.normalizeData()
     k = 10
 
     #Partition the data into 10 subsets
     dataSets = theData.getKSegments(k)
 
-    #For each of the 10 subsets leave one out, train on the 
-    # other 9, test on the one left out, print the accuracy. 
+    #For each of the 10 subsets leave one out, train on the
+    # other 9, test on the one left out, print the accuracy.
     results = confusionMatrix(labels)
     for i in xrange(k):
         print i
@@ -428,7 +428,7 @@ def crossValidationPositions():
         testForest.train()
 
         #Evaluate the classifer on the test set
-        
+
         for samp in testSet.getData():
             resultLabel = testForest.classify(samp)
             trueLabel = samp.getLabel()
@@ -440,8 +440,8 @@ def crossValidationPositions():
 
 def oneVsTwoAngles():
     '''
-    Trains a random forest on the data from participant 1 
-    and tests it on participant 2 and 3. The data used here 
+    Trains a random forest on the data from participant 1
+    and tests it on participant 2 and 3. The data used here
     uses the angle features
     '''
     theData = generateOneTrainAngleData()
@@ -454,6 +454,7 @@ def oneVsTwoAngles():
 
     results = confusionMatrix(labels)
 
+    print results.matrix
     for samp in testList:
         resultLabel = testForest.classify(samp)
         trueLabel = samp.getLabel()
@@ -465,8 +466,8 @@ def oneVsTwoAngles():
 
 def oneVsTwoPositions():
     '''
-    Trains a random forest on the data from participant 1 
-    and tests it on participant 2 and 3. The data used here 
+    Trains a random forest on the data from participant 1
+    and tests it on participant 2 and 3. The data used here
     uses the position features
     '''
     theData = generateOneTrainPositionData()
@@ -491,8 +492,8 @@ def oneVsTwoPositions():
 
 def twoVsOneAngles():
     '''
-    Trains a random forest on the data from participants 1 and 2 
-    and tests it on participant 3. The data used here 
+    Trains a random forest on the data from participants 1 and 2
+    and tests it on participant 3. The data used here
     uses the angle features
     '''
     theData = generateTwoAngleTrainingData()
@@ -516,8 +517,8 @@ def twoVsOneAngles():
 
 def twoVsOnePositions():
     '''
-    Trains a random forest on the data from participants 1 and 2 
-    and tests it on participant 3. The data used here 
+    Trains a random forest on the data from participants 1 and 2
+    and tests it on participant 3. The data used here
     uses the angle features
     '''
     theData = generateTwoPositionTrainingData()
@@ -543,14 +544,14 @@ def twoVsOnePositions():
 if __name__ == '__main__':
     print "1v2 Angles: "
     oneVsTwoAngles()
-    print "1v2 Positions: "
-    oneVsTwoPositions()
-    print "2v1 Angles: "
-    twoVsOneAngles()
-    print "2v1 Positions: "
-    twoVsOnePositions()
-    print "Angles CrossVal: "
-    crossValidationAngles()
-    print "Positions CrossVal: "
-    crossValidationPositions()
+    # print "1v2 Positions: "
+    # oneVsTwoPositions()
+    # print "2v1 Angles: "
+    # twoVsOneAngles()
+    # print "2v1 Positions: "
+    # twoVsOnePositions()
+    # print "Angles CrossVal: "
+    # crossValidationAngles()
+    # print "Positions CrossVal: "
+    # crossValidationPositions()
 
